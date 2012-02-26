@@ -7,11 +7,14 @@ require "committed_changes/version"
 Gem::Specification.new do |s|
   s.name        = "committed_changes"
   s.version     = CommittedChanges::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of CommittedChanges."
-  s.description = "TODO: Description of CommittedChanges."
+  s.authors     = ["Mariusz Pietrzyk"]
+  s.email       = ["wijet@wijet.pl"]
+  s.homepage    = "https://github.com/wijet/committed_changes"
+  s.summary     = "committed_changes hash for ActiveRecord models"
+  s.description = %{
+    A Ruby on Rails plugin which provides hash with changes committed to the database
+    when the changes hash is already cleared.
+  }
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
