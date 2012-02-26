@@ -32,4 +32,13 @@ class CommittedChangesTest < ActiveSupport::TestCase
     foo.save
     assert foo.domains_changed_and_committed?
   end
+
+  test "works in after_commit callback" do
+    foo = Vhost.find_by_name("Foo")
+    assert !foo.reconfigured?
+
+    foo.domains = "bar.example.com"
+    foo.save
+    assert foo.reconfigured?
+  end
 end

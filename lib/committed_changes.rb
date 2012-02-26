@@ -4,12 +4,17 @@ module CommittedChanges
   included do
     attribute_method_suffix "_changed_and_committed?"
     after_save :__store_changes_before_commit
-    after_commit :__changes_committed
   end
 
   # Returs hash of committed changes
   def committed_changes
     @__committed_changes || {}
+  end
+
+  # Invoked by rails after record has been committed
+  def committed!
+    __changes_committed
+    super
   end
 
   private
