@@ -1,4 +1,5 @@
 # CommittedChanges
+---
 
 Rails plugin which provides hash with changes committed to the database.
 
@@ -25,7 +26,7 @@ class Vhost < ActiveRecord::Base
   after_commit :reconfigure_server, :if => :domains_changed_and_committed?
 
   def reconfigure_server
-    # launch backgroud job
+    # launch background job
   end
 end
 
@@ -38,15 +39,27 @@ foo.committed_changes #=> {"domains" => ["old.example.com", "new.example.com"]}
 foo.domains_changed_and_committed? #=> true
 ```
 
-###
-Running tests
+### Contributions
 
-```
-cd test/dummy
-rake db:migrate
-rake db:test:prepare
-cd ../..
-rake test
-```
+To fetch & test the library for development, do:
+
+  $ git clone https://github.com/wijet/committed_changes
+  $ cd committed_changes
+  $ bundle
+
+#### Running tests
+
+  # Preparing test database
+  $ cd test/dummy && rake db:migrate && rake db:test:prepare
+  $ cd ../..
+  # Running tests
+  $ bundle exec rake test
+
+If you want to contribute, please:
+
+  * Fork the project.
+  * Make your feature addition or bug fix.
+  * Add tests for it. This is important so I don't break it in a future version unintentionally.
+  * Send me a pull request on Github.
 
 This project rocks and uses MIT-LICENSE.
