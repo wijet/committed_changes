@@ -5,7 +5,7 @@ Rails plugin which provides hash with changes committed to the database.
 
 ### What problem does it solve ?
 
-It's useful when you wan't to trigger a callback depend on changed attributes after data is committed to the database.
+It's useful when you want to trigger a callback depend on changed attributes after data is committed to the database.
 
 Normally you would do that in after_commit callback, the problem is that changes hash is already cleared.
 
