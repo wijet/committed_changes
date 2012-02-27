@@ -1,15 +1,15 @@
-# CommittedChanges [![Build Status](https://secure.travis-ci.org/wijet/committed_changes.png)](http://travis-ci.org/wijet/committed_changes)
+# Committed Changes [![Build Status](https://secure.travis-ci.org/wijet/committed_changes.png)](http://travis-ci.org/wijet/committed_changes)
 ---
 
-Rails plugin which provides hash with changes committed to the database.
+A Ruby on Rails plugin which provides hash with changes committed to the database.
 
 ### What problem does it solve ?
 
 It's useful when you want to trigger a callback depend on changed attributes after data is committed to the database.
 
-Normally you would do that in after_commit callback, the problem is that changes hash is already cleared.
+Normally you would do that in ```after_commit``` callback, the problem is that ```changes``` hash is already cleared.
 
-This is where committed_changes hash comes in.
+This is where ```committed_changes``` hash comes in.
 
 ### Installation
 
