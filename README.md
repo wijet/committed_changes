@@ -1,4 +1,4 @@
-# CommittedChanges
+# CommittedChanges [![Build Status](https://secure.travis-ci.org/wijet/committed_changes.png)](http://travis-ci.org/wijet/committed_changes)
 ---
 
 Rails plugin which provides hash with changes committed to the database.
