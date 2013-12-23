@@ -50,7 +50,7 @@ To fetch & test the library for development, do:
 #### Running tests
 
     # Preparing test database
-    $ cd test/dummy && rake db:migrate && rake db:test:prepare
+    $ cd test/dummy && bundle exec rake db:migrate && bundle exec rake db:test:prepare
     $ cd ../..
     # Running tests
     $ bundle exec rake test
