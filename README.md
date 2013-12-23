@@ -1,15 +1,42 @@
 # Committed Changes [![Build Status](https://secure.travis-ci.org/wijet/committed_changes.png)](http://travis-ci.org/wijet/committed_changes)
----
 
-A Ruby on Rails plugin which provides hash with changes committed to the database.
+A Rails plugin that maintains visibility to changes after they've been committed to the database.
 
-### What problem does it solve ?
+### What does it do?
 
-It's useful when you want to trigger a callback depend on changed attributes after data is committed to the database.
+Rails clears the `changes` hash for ActiveRecord instances before the `after_commit` callback is fired. This gem adds it back via `committed_changes` and `#{attribute}_changed_and_committed?` methods.
 
-Normally you would do that in ```after_commit``` callback, the problem is that ```changes``` hash is already cleared.
+### Why would you need this?
 
-This is where ```committed_changes``` hash comes in.
+Sometimes you need to wait until after a record is committed to the database to trigger a callback. For example, if you use [Sidekiq](https://github.com/mperham/sidekiq) for background processing, you have to [wait until after the commit](https://github.com/mperham/sidekiq/issues/322) to queue new jobs or else the record may not exist when Sidekiq attempts to perform the job.
+
+### How do you use it?
+
+```ruby
+> vhost = Vhost.first
+
+> vhost.name
+=> "Foo"
+
+> vhost.name = "Bar"
+=> "Bar"
+
+> vhost.changes
+=> {"name"=>["Foo", "Bar"]}
+
+> vhost.save
+=> true
+
+> vhost.changes
+=> {}
+
+> vhost.committed_changes
+=> {"name"=>["Foo", "Bar"], "updated_at"=>[Mon, 23 Dec 2013 19:55:46 UTC +00:00, Mon, 23 Dec 2013 19:57:42 UTC +00:00]}
+
+> vhost.name_changed_and_committed?
+=> true
+
+```
 
 ### Installation
 
@@ -20,24 +47,7 @@ gem 'committed_changes'
 ```
 
 ### Usage
-```ruby
-class Vhost < ActiveRecord::Base
-  include CommittedChanges
-  after_commit :reconfigure_server, :if => :domains_changed_and_committed?
-
-  def reconfigure_server
-    # launch background job
-  end
-end
-
-foo = Vhost.first
-foo.domains = "new.example.com"
-foo.save
-
-foo.changes #=> {}
-foo.committed_changes #=> {"domains" => ["old.example.com", "new.example.com"]}
-foo.domains_changed_and_committed? #=> true
-```
+These features are included into `ActiveRecord::Base` automatically when the gem loads.
 
 ### Contributions
 
